@@ -1,0 +1,20 @@
+{
+  "name": "social-metrics-mcp",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "mcp": "node mcp-server.js"
+  },
+  "bin": {
+    "social-metrics-mcp": "./mcp-server.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.25.3",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "puppeteer": "^21.6.1",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2"
+  }
+}
