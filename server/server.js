@@ -1,8 +1,11 @@
 import express from 'express';
 import cors from 'cors';
-import puppeteer from 'puppeteer-extra';
+import puppeteerExtra from 'puppeteer-extra';
+import puppeteerCore from 'puppeteer-core';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
+import chromium from '@sparticuz/chromium';
 
+const puppeteer = puppeteerExtra.default || puppeteerExtra;
 puppeteer.use(StealthPlugin());
 
 const app = express();
@@ -20,16 +23,12 @@ async function getBrowser() {
       }
       console.log('Launching new browser...');
       browser = await puppeteer.launch({
-        headless: 'new',
+        headless: chromium.headless,
+        executablePath: await chromium.executablePath(),
         args: [
-          '--no-sandbox',
-          '--disable-setuid-sandbox',
-          '--disable-dev-shm-usage',
-          '--disable-gpu',
+          ...chromium.args,
           '--disable-blink-features=AutomationControlled',
-          '--window-size=1920,1080',
-          '--single-process',
-          '--no-zygote'
+          '--window-size=1920,1080'
         ]
       });
       console.log('Browser launched successfully');
