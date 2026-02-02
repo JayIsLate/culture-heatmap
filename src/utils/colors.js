@@ -9,14 +9,14 @@ export const getColor = (change) => {
     const b = Math.round(80 + 20 * intensity);
     return `rgb(${r}, ${g}, ${b})`;
   } else {
-    // Muted red/coral for falling
-    const r = Math.round(200 + 40 * intensity);
-    const g = Math.round(60 - 20 * intensity);
-    const b = Math.round(60 - 20 * intensity);
+    // Magenta/pink for falling (Zora style)
+    const r = Math.round(220 + 35 * intensity);
+    const g = Math.round(0 + 40 * intensity);
+    const b = Math.round(220 + 35 * intensity);
     return `rgb(${r}, ${g}, ${b})`;
   }
 };
 
 // Legend colors - Zora-inspired
 export const RISING_COLOR = '#00FF66';
-export const FALLING_COLOR = '#FF4444';
+export const FALLING_COLOR = '#FF00FF';
