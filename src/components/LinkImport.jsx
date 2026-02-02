@@ -30,6 +30,7 @@ export default function LinkImport({ categories, onImport, onCancel }) {
     comments: '',
     followers: '',
   });
+  const [manualPostedAt, setManualPostedAt] = useState('');
   const [customImage, setCustomImage] = useState(null);
   const fileInputRef = useRef(null);
   const imageInputRef = useRef(null);
@@ -264,9 +265,12 @@ export default function LinkImport({ categories, onImport, onCancel }) {
       metrics = Object.keys(parsedMetrics).length > 0 ? parsedMetrics : null;
     }
 
+    // Use manual date if provided, otherwise use scraped date
+    const finalPostedAt = manualPostedAt || preview.postedAt || null;
+
     // Calculate momentum from post age
-    const momentum = preview.postedAt
-      ? calculateMomentumFromAge(preview.postedAt, metrics)
+    const momentum = finalPostedAt
+      ? calculateMomentumFromAge(finalPostedAt, metrics)
       : null;
 
     onImport({
@@ -277,7 +281,7 @@ export default function LinkImport({ categories, onImport, onCancel }) {
       platform: platform?.platform || null,
       suggestedCategory: suggestedCategoryId,
       metrics,
-      postedAt: preview.postedAt || null,
+      postedAt: finalPostedAt,
       calculatedMomentum: momentum,
     });
   };
@@ -496,6 +500,15 @@ export default function LinkImport({ categories, onImport, onCancel }) {
                     placeholder="500K"
                   />
                 </div>
+              </div>
+
+              <div className="metric-input-small date-input">
+                <label>Date Posted {!preview?.postedAt && <span className="optional">(optional)</span>}</label>
+                <input
+                  type="date"
+                  value={manualPostedAt || (preview?.postedAt ? preview.postedAt.split('T')[0] : '')}
+                  onChange={(e) => setManualPostedAt(e.target.value)}
+                />
               </div>
 
               {calculatedScore && (
