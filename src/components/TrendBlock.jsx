@@ -1,4 +1,4 @@
-import { getColor } from '../utils/colors';
+import { getColor, RISING_COLOR, FALLING_COLOR } from '../utils/colors';
 
 export default function TrendBlock({ item, style, onClick }) {
   const isLarge = style.width > 200 && style.height > 150;
@@ -79,7 +79,7 @@ export default function TrendBlock({ item, style, onClick }) {
             fontSize: nameFontSize,
             fontWeight: 700,
             color: '#000000',
-            backgroundColor: item.change >= 0 ? '#00FF66' : '#FF4444',
+            backgroundColor: item.change >= 0 ? RISING_COLOR : FALLING_COLOR,
             padding: isLarge ? '6px 12px' : isMedium ? '4px 8px' : '2px 5px',
             lineHeight: 1.1,
             textTransform: 'uppercase',
@@ -101,7 +101,7 @@ export default function TrendBlock({ item, style, onClick }) {
               fontSize: changeFontSize,
               fontWeight: 700,
               color: '#000000',
-              backgroundColor: item.change >= 0 ? '#00FF66' : '#FF4444',
+              backgroundColor: item.change >= 0 ? RISING_COLOR : FALLING_COLOR,
               padding: isLarge ? '4px 10px' : isMedium ? '3px 7px' : '2px 5px',
               zIndex: 10,
               letterSpacing: '-0.5px',
